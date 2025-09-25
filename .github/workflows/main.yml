@@ -1,29 +1,19 @@
-# Name for your workflow, which will be displayed in the Actions tab
 name: Manual Hello World
 
-# This trigger allows the workflow to be run manually from the GitHub UI
 on:
   workflow_dispatch:
 
-# Defines the jobs that the workflow will run
 jobs:
   test:
-    # Specifies the type of virtual machine to run the job on
     runs-on: ubuntu-latest
 
-    # A sequence of tasks to be executed in the job
     steps:
-      # A standard first step to check out your repository code
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      # This step creates a directory to be cached.
-      # In a real-world scenario, this would be where your dependency manager (like npm or pip) installs packages.
       - name: Create dummy directory for caching
         run: mkdir -p node_modules
 
-      # This is the caching step. It uses the specified key.
-      # It needs an 'id' so we can refer to its output in the next step.
       - name: Cache dependencies
         id: cache-step
         uses: actions/cache@v4
@@ -31,12 +21,8 @@ jobs:
           path: node_modules
           key: cache-28b48f3
 
-      # This step has the required name and echoes the cache hit/miss status.
-      # It reads the 'cache-hit' output from the previous step (identified by its id: 'cache-step').
-      # The first run will show 'Cache hit: false', and subsequent runs will show 'Cache hit: true'.
       - name: prime-cache-28b48f3
-        run: echo "Cache hit status: ${{ steps.cache-step.outputs.cache-hit }}"
+        run: 'echo "Cache hit status: ${{ steps.cache-step.outputs.cache-hit }}"'
 
-      # Your original step
       - name: 24f1001257@ds.study.iitm.ac.in
         run: echo "Hello, world!"
